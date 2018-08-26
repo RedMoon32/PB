@@ -7,11 +7,9 @@ from telethon.sessions import StringSession
 from configs import *
 
 
-
 def add_new_session():
     try:
-        with TelegramClient(environ.get('TG_SESSION', 'session'), api_id, hash,
-                            proxy=proxy) as client:
+        with TelegramClient(environ.get('TG_SESSION', 'session'), api_id, hash) as client:
             client.start()
             open('log.txt', 'a').write(StringSession.save(client.session) + '\n')
         os.remove('session.session')
@@ -26,6 +24,17 @@ def load_sessions():
     return users
 
 
+def number_exists(phone):
+    try:
+        users = load_sessions()
+        with TelegramClient(StringSession(users[0]), api_id, hash) as client:
+            print(client.get_entity(phone))
+        return True
+    except:
+        return False
+
+
 if __name__ == '__main__':
-    while True:
-        add_new_session()
+    number_exists('+7925558579')
+    # while True:
+    #    add_new_session()
