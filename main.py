@@ -33,8 +33,6 @@ def add_people_to_group(client, guest_phone_number, group_id):
                                 last_name="Last_name")
     result = client(ImportContactsRequest([contact]))
     res = client.get_entity(group_id)
-    print(res)
-    # client(AddChatUserRequest(user_id=result.users[0], fwd_limit=0, chat_id=group_id))
     client(InviteToChannelRequest(res, [result.users[0]]))
 
 
@@ -47,12 +45,13 @@ def add_phone_numbers(phones):
             with TelegramClient(StringSession(users[userid]), api_id, hash) as client:
                 print(client.get_entity(groupd_id))
                 add_people_to_group(client, phones[num], groupd_id)
-                num += 1
                 if num % 60 == 0:
                     userid += 1
                     continue
+                num += 1
         except Exception as e:
             print(str(e))
+            num += 1
 
 
 def number_exists(phone):
@@ -66,8 +65,5 @@ def number_exists(phone):
 
 
 if __name__ == '__main__':
-    # number_exists('+79279348579')
-    # add_new_session()
-    add_phone_numbers(['+79174299995'])
-    # while True:
-    #    add_new_session()
+    while True:
+        add_new_session()

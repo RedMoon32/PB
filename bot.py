@@ -21,7 +21,7 @@ class TBot:
             self.updater.dispatcher.add_handler(i)
 
     def get_file(self, bot, update):
-        print(update)
+        print('New txt document')
         file_id = update.message.document.file_id
         newFile = bot.get_file(file_id)
         newFile.download('numbers.txt')
@@ -31,6 +31,7 @@ class TBot:
             i = i.replace(' ', '')
             i = i.replace('-', '')
             ph += [i]
+        bot.send_message(chat_id=update.message.chat_id, text='Принято')
         add_phone_numbers(phones=ph)
         # add_phone_numbers('numbers.txt')
 
