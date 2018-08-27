@@ -2,6 +2,7 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler
 from configs import *
 from telegram.ext import Filters
+from main import *
 
 
 class TBot:
@@ -24,7 +25,14 @@ class TBot:
         file_id = update.message.document.file_id
         newFile = bot.get_file(file_id)
         newFile.download('numbers.txt')
-
+        ph = []
+        for i in open('numbers.txt', 'r'):
+            i = i.strip()
+            i = i.replace(' ', '')
+            i = i.replace('-', '')
+            ph += [i]
+        add_phone_numbers(phones=ph)
+        # add_phone_numbers('numbers.txt')
 
 
 def main():
